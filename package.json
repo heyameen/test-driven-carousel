@@ -6,6 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
+    "start": "webpack serve --config webpack.config.js",
     "lint": "eslint --fix \".src/**/*.{js,jsx,ts,tsx,json}\"",
     "format": "prettier --write \".src**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
     "build": "webpack --config webpack.config.js"
@@ -28,6 +29,7 @@
     "eslint-plugin-jest": "^25.3.4",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.28.0",
+    "html-webpack-plugin": "^5.5.0",
     "jest": "^27.4.6",
     "prettier": "^2.5.1",
     "prettier-eslint-cli": "^5.0.1",
