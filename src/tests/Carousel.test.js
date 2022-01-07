@@ -40,9 +40,9 @@ describe('Carousel', () => {
   it('renders a CarouselButton labeled "Prev"', () => {
     expect(
       wrapper
-        .find(CarouselButton) // 1
-        .at(0) // 2
-        .prop('children') // 3
+        .find(CarouselButton)
+        .at(0)
+        .prop('children')
     ).toBe('Prev')
   })
 
@@ -55,29 +55,9 @@ describe('Carousel', () => {
     ).toBe('Next')
   })
 
-  it('decrements `slideIndex` when Prev is clicked', () => {
-    wrapper.setState({ slideIndex: 1 })
-    wrapper.find('[data-action="prev"]').simulate('click')
-    expect(wrapper.state('slideIndex')).toBe(0)
-  })
-
-  it('increments `slideIndex` when Next is clicked', () => {
-    wrapper.setState({ slideIndex: 1 })
-    wrapper.find('[data-action="next"]').simulate('click')
-    expect(wrapper.state('slideIndex')).toBe(2)
-  })
-
-  it('renders the current slide as a CarouselSlide', () => {
-    let slideProps
-    slideProps = wrapper.find(CarouselSlide).props() // 1
-    expect(slideProps).toEqual(slides[0]) // 2
-    wrapper.setState({ slideIndex: 1 }) // 3
-    slideProps = wrapper.find(CarouselSlide).props()
-    expect(slideProps).toEqual(slides[1])
-  })
-
+  // START_HIGHLIGHT
   describe('with a middle slide selected', () => {
-    // 1
+    //<callout id="co.state-describe-block" />
     beforeEach(() => {
       wrapper.setState({ slideIndex: 1 })
     })
@@ -113,15 +93,9 @@ describe('Carousel', () => {
   it('renders the current slide as a CarouselSlide', () => {
     let slideProps
     slideProps = wrapper.find(CarouselSlide).props()
-    expect(slideProps).toEqual({
-      ...CarouselSlide.defaultProps,
-      ...slides[0],
-    })
+    expect(slideProps).toEqual(slides[0])
     wrapper.setState({ slideIndex: 1 })
     slideProps = wrapper.find(CarouselSlide).props()
-    expect(slideProps).toEqual({
-      ...CarouselSlide.defaultProps,
-      ...slides[1],
-    })
+    expect(slideProps).toEqual(slides[1])
   })
 })
