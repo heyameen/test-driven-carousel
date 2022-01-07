@@ -1,6 +1,7 @@
+import { mount, shallow } from 'enzyme'
+
 import CarouselSlide from '../CarouselSlide'
 import React from 'react'
-import { shallow } from 'enzyme'
 
 describe('CarouselSlide', () => {
   let wrapper
@@ -27,7 +28,7 @@ describe('CarouselSlide', () => {
   it('passes `imgUrl` through to the <img>', () => {
     const imgUrl = 'https://example.com/image.png'
     wrapper.setProps({ imgUrl })
-    const img = wrapper.find('img') // 1
+    const img = wrapper.find(CarouselSlide.defaultProps.Img)
     expect(img.prop('src')).toBe(imgUrl)
   })
 
@@ -41,13 +42,32 @@ describe('CarouselSlide', () => {
     expect(wrapper.find('figcaption strong').text()).toBe(description)
   })
 
-  it('passes other props through to the <figure>', () => {  
-    const style = {};
-    const onClick = () => {};
-    const className = 'my-carousel-slide'; 
-    wrapper.setProps({ style, onClick, className }); 
-    expect(wrapper.prop('style')).toBe(style); 
-    expect(wrapper.prop('onClick')).toBe(onClick); 
-    expect(wrapper.prop('className')).toBe(className);
-  }); 
+  it('passes other props through to the <figure>', () => {
+    const style = {}
+    const onClick = () => {}
+    const className = 'my-carousel-slide'
+    wrapper.setProps({ style, onClick, className })
+    expect(wrapper.prop('style')).toBe(style)
+    expect(wrapper.prop('onClick')).toBe(onClick)
+    expect(wrapper.prop('className')).toBe(className)
+  })
+
+  it('renders props.Img and a <figcaption> as children', () => {
+    expect(wrapper.childAt(0).type()).toBe(CarouselSlide.defaultProps.Img)
+    expect(wrapper.childAt(1).type()).toBe('figcaption')
+  })
+})
+
+describe('Img', () => {
+  let mounted
+  const imgUrl = 'https://example.com/default.jpg'
+
+  beforeEach(() => {
+    const Img = CarouselSlide.defaultProps.Img
+    mounted = mount(<Img src={imgUrl} imgHeight={500} />)
+  })
+
+  it('renders an <img> with the given src', () => {
+    expect(mounted.containsMatchingElement(<img src={imgUrl} />)).toBe(true)
+  })
 })
